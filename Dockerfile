@@ -8,18 +8,14 @@ RUN apt-get install -y \
 
 RUN   pip install --upgrade pip 
  
-# copy the requirements file into the image
-#COPY ./requirements_flask.txt /app/requirements_flask.txt
-COPY ./requirements_flask.txt /app/
+# copy every content from the local file to the image
+COPY . /app
 
 # switch working directory
 WORKDIR /app
 
 # install the dependencies and packages in the requirements file
 RUN pip install -r requirements_flask.txt
-
-# copy every content from the local file to the image
-COPY . /app
 
 # configure the container to run in an executed manner
 ENTRYPOINT [ "python3", "cours03_flask_file/app.py" ]
