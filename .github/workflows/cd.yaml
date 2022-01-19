@@ -30,7 +30,7 @@ jobs:
         git config --local user.email "$GITHUB_EMAIL"
         git config --local user.name "$GITHUB_USERNAME"
         git add requirements_docker.txt
-        git commit -m "push depuis docker " -a
+        git commit --allow-empty -m "push depuis docker "
         git push    
       env:
         GITHUB_USERNAME: "$GITHUB_USERNAME"
@@ -49,7 +49,7 @@ jobs:
           usedocker: true
         env:
           GITHUB_EMAIL: "$GITHUB_EMAIL"
-      - run: |
-            container_id=$(docker run -it --rm --detach busybox)
-            echo container_id
+      #- run: |
+      #      container_id=$(docker run -it --rm --detach busybox)
+      #      echo container_id
 
