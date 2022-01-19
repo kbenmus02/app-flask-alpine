@@ -18,4 +18,4 @@ WORKDIR /app/cours03_flask_file
 RUN pip install -r requirements_flask.txt
 
 # configure the container to run in an executed manner
-ENTRYPOINT [ "python3", "cours03_flask_file/app.py" ]
+ENTRYPOINT [ "python3", "app.py" ]
