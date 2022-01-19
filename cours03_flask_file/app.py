@@ -37,6 +37,9 @@ IMG_SIZE = 64
 IMG_IN_COLOR = 1
 
 @app.route("/")
+@ini_set( '_max_size' , '64M' )
+@ini_set( 'post_max_size', '64M')
+@ini_set( 'max_execution_time', '300' )
 def index():
     
     img_file_name_list = fnmatch.filter(os.listdir(app.config['UPLOAD_PATH']), "*.png") #Liste des images dans le répertoire UPLOAD_PATH.
@@ -197,6 +200,9 @@ def load_model(model_file_info: str):
 
 
 
+
+
 if __name__ == "__main__":
     port = os.environ.get("PORT", 5000)
+    app.config["MAX_CONTENT_LENTH"] = 1024
     app.run(debug=False, host="0.0.0.0", port = port)
