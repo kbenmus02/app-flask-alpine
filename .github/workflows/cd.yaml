@@ -29,8 +29,9 @@ jobs:
       run: |
         git config --local user.email "$GITHUB_EMAIL"
         git config --local user.name "$GITHUB_USERNAME"
-        git add requirements_docker
-        git commit -m "push depuis docker "    
+        git add requirements_docker.txt
+        git commit -m "push depuis docker "
+        git push    
       env:
         GITHUB_USERNAME: "$GITHUB_USERNAME"
         GITHUB_EMAIL: "$GITHUB_EMAIL"
@@ -44,7 +45,7 @@ jobs:
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "app-flask-malaria" # Must be unique in Heroku
-          heroku_email: "mkbensmaia@gmail.com"
+          heroku_email: "$GITHUB_EMAIL"
           usedocker: true
       - run: |
             container_id=$(docker run -it --rm --detach busybox)
