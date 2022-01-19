@@ -24,15 +24,16 @@ jobs:
         pip3 install --upgrade pip
         pip install -r requirements.txt
         pip freeze > requirements_docker.txt
+    
     - name: preparer_gitpush
       run: |
-          git config --local user.email "$GITHUB_EMAIL"
-          git config --local user.name "$GITHUB_USERNAME"
-          git add requirements_docker
-          git commit -m "push depuis docker "    
+        git config --local user.email "$GITHUB_EMAIL"
+        git config --local user.name "$GITHUB_USERNAME"
+        git add requirements_docker
+        git commit -m "push depuis docker "    
       env:
-          GITHUB_USERNAME: "$GITHUB_USERNAME"
-          GITHUB_EMAIL: "$GITHUB_EMAIL"
+        GITHUB_USERNAME: "$GITHUB_USERNAME"
+        GITHUB_EMAIL: "$GITHUB_EMAIL"
         
   my_CD:
     runs-on: ubuntu-latest
@@ -48,4 +49,4 @@ jobs:
       - run: |
             container_id=$(docker run -it --rm --detach busybox)
             echo container_id
-       
+
