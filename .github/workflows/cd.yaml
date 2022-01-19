@@ -30,7 +30,9 @@ jobs:
           git config --local user.name "$GITHUB_USERNAME"
           git add requirements_docker
           git commit -m "push depuis docker "    
-
+      env:
+          GITHUB_USERNAME: "$GITHUB_USERNAME"
+          GITHUB_EMAIL: "$GITHUB_EMAIL"
         
   my_CD:
     runs-on: ubuntu-latest
