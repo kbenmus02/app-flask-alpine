@@ -15,7 +15,7 @@ COPY . /app
 WORKDIR /app
 
 # install the dependencies and packages in the requirements file
-RUN pip install -r requirements_flask.txt
+RUN pip install -r /app/requirements_flask.txt
 
 # configure the container to run in an executed manner
 ENTRYPOINT [ "python3", "cours03_flask_file/app.py" ]
