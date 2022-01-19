@@ -39,7 +39,7 @@ jobs:
         
   my_CD:
     runs-on: ubuntu-latest
-    #needs: [myCI]
+    needs: [myCI]
     steps:
       - uses: actions/checkout@v2
       - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
