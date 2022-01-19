@@ -5,7 +5,7 @@ RUN apt-get update && apt-get install -y
 RUN apt-get install -y \
     python3 \
     python3-pip
-    
+
 RUN   pip install --upgrade pip 
  
 # copy the requirements file into the image
@@ -22,5 +22,5 @@ RUN pip install -r requirements_flask.txt
 COPY . /app
 
 # configure the container to run in an executed manner
-#ENTRYPOINT [ "python", "app.py" ]
+ENTRYPOINT [ "python3", "cours03_flask_file/app.py" ]
 
