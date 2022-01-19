@@ -30,7 +30,7 @@ jobs:
         git config --local user.email "$GITHUB_EMAIL"
         git config --local user.name "$GITHUB_USERNAME"
         git add requirements_docker.txt
-        git commit -m "push depuis docker "
+        git commit -m "push depuis docker " -a
         git push    
       env:
         GITHUB_USERNAME: "$GITHUB_USERNAME"
