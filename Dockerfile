@@ -19,4 +19,4 @@ RUN pip install -r /app/cours03_flask_file/requirements_flask.txt
 
 # configure the container to run in an executed manner
 ENTRYPOINT [ "python3", "/app/cours03_flask_file/app.py" ]
-
+ 
