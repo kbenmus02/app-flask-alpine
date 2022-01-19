@@ -12,10 +12,10 @@ RUN   pip install --upgrade pip
 COPY . /app
 
 # switch working directory
-WORKDIR /app
+WORKDIR /app/cours03_flask_file
 
 # install the dependencies and packages in the requirements file
-RUN pip install -r /app/cours03_flask_file/requirements_flask.txt
+RUN pip install -r requirements_flask.txt
 
 # configure the container to run in an executed manner
-ENTRYPOINT [ "python3", "/app/cours03_flask_file/app.py" ]
+ENTRYPOINT [ "python3", "cours03_flask_file/app.py" ]
