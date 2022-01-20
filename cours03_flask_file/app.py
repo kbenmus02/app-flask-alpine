@@ -130,7 +130,7 @@ def predict():
 
     # === Charge le modèle
     print("### Chargement du modèle ...")
-    model = keras.models.load_model(PATH_MODEL)
+    model = keras.models.load_model(PATH_MODEL+ "/model_cnn_2.h5")
     #model = utils.pickle_read(PATH_MODEL + "/" + MODEL_FILE_NAME)
     print("### " + str(model))
     print("### Chargement du modèle fait")
