@@ -1,18 +1,20 @@
 # Lancer le serveur : flask run
 # Tutoriel : https://blog.miguelgrinberg.com/post/handling-file-uploads-with-flask
 # Images : C:\Users\René\Documents\Rene\IA\IA297\Jupyter\420-A62-BB_ProjetSynthese\A62-EquipeCV\cell_images\Parasitized
-import os.path
 import os
+import os.path
 import imghdr
-import glob
 
 import pandas as pd
 import numpy as np
 import cv2
-import fnmatch #Permet de filtrer les noms de fichier selon l'extention.
 
+import fnmatch  # Permet de filtrer les noms de fichier selon l'extention.
+import glob
 import utils
-#from cours03_flask_file import utils
+
+import tensorflow as tf
+from tensorflow import keras
 
 from flask import Flask, \
     abort, \
@@ -38,7 +40,6 @@ IMG_IN_COLOR = 1
 
 @app.route("/")
 def index():
-    
     img_file_name_list = fnmatch.filter(os.listdir(app.config['UPLOAD_PATH']), "*.png") #Liste des images dans le répertoire UPLOAD_PATH.
     print("### Index(), av predict()")
     prediction_table_row_list = predict()
@@ -56,8 +57,6 @@ def manage_button():
         # uploaded_file = request.files['img_file'] # Mettre le "name" du champ dans le formulaire HTML
 
         #=== Efface les fichiers existants
-
-
         file_name_list = glob.glob(app.config["UPLOAD_PATH"] + '/*.png')
         for file_name in file_name_list:
             os.remove(file_name)
@@ -87,7 +86,6 @@ def normalize_pixels(img_arr: np.array) -> np.array:
     img_arr_norm = img_arr / 255.0
     return img_arr_norm.astype("float16")
 
-
 def image_resize(path_img: str) -> np.array:
     img_arr = cv2.imread(path_img, flags=IMG_IN_COLOR)
 
@@ -109,7 +107,6 @@ def preprocess_img(path_img: str, img_size: int = IMG_SIZE) -> np.array:
 def predict():
     print("### Prédiction")
 
- 
     """
     #=== Charge les fonctions pour le prétraitement
     print("### Chargement des fonctions de pré-traitement ...")
@@ -129,36 +126,33 @@ def predict():
     print(preprocess_img.__name__)
     print("### Chargement des fonctions de pré-traitement fait.")
     #--- Charge les fonctions pour le prétraitement
- 
     """
+
     # === Charge le modèle
     print("### Chargement du modèle ...")
-    
-    model = utils.pickle_read(PATH_MODEL + "/" + MODEL_FILE_NAME)
+    model = keras.models.load_model(PATH_MODEL)
+    #model = utils.pickle_read(PATH_MODEL + "/" + MODEL_FILE_NAME)
     print("### " + str(model))
     print("### Chargement du modèle fait")
     # --- Charge le modèle
 
-    # === Pré-traite les images
-    print("### Pré-traitement des images ...")
-    
-    
-
+    # === Charge la liste des images
+    print("### Chargement de la liste des images ...")
     img_file_name_list = glob.glob(app.config["UPLOAD_PATH"] + '/*.png')
     df_img_file_name = pd.DataFrame(img_file_name_list, columns=["img_file_info"])
     df_img_file_name["img_prediction"] = ""
     print(df_img_file_name)
-    print("### Pré-traitement des images fait.")
-    # --- Pré-traite les images
+    print("### Chargement de la liste des images fait.")
+    # --- Charge de la liste des images
 
     # === Fait la prédiction sur les images
     print("### Prédiction pour les images ...")
 
     for i in range(0, len(df_img_file_name)):
         print("###", df_img_file_name.iloc[i]["img_file_info"])
-        preprocessed_img_arr = preprocess_img(df_img_file_name.iloc[i]["img_file_info"], IMG_SIZE)
-        # img_prediction = model.predict()
-        df_img_file_name.at[i, "img_prediction"] = "?"
+        preprocessed_img_arr = preprocess_img(df_img_file_name.iloc[i]["img_file_info"], IMG_SIZE).reshape((1, 64, 64, 3))
+        img_prediction = model.predict(preprocessed_img_arr)
+        df_img_file_name.at[i, "img_prediction"] = img_prediction
 
     print(df_img_file_name)
     print("### Prédiction pour les images faite.")
@@ -190,12 +184,10 @@ def uploads(filename):
 def load_model(model_file_info: str):
     #=== Charge le modèle
     NOTEBOOK_PATH = "../notebook"
-
     model = utils.pickle_read(model_file_info)
     return model
     #--- Charge le modèle
 
-
 if __name__ == "__main__":
     port = os.environ.get("PORT", 5000)
-    app.run(debug=False, host="0.0.0.0", port = port)
+    app.run(debug=False, host="0.0.0.0", port=port)
