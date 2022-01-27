@@ -24,6 +24,7 @@ jobs:
         pip3 install --upgrade pip
         pip install -r requirements.txt
         pip freeze > requirements_docker.txt
+        python --version > python_version.txt
     
     - name: preparer_gitpush
       run: |
@@ -49,7 +50,12 @@ jobs:
           usedocker: true
         env:
           GITHUB_EMAIL: "$GITHUB_EMAIL"
-      #- run: |
+      - run: |
+          echo ***************************************************************
+          echo python --version
+          echo ***************************************************************
+      
+      
       #      container_id=$(docker run -it --rm --detach busybox)
       #      echo container_id
 
