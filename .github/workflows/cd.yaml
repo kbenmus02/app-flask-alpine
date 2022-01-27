@@ -18,11 +18,11 @@ jobs:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
       run: |
         # Your ML workflow goes here
-        apt-get update && apt-get install -y
-        apt-get install -y \
-        python3 \
-        python3-pip
-        pip3 install --upgrade pip
+        #apt-get update && apt-get install -y
+        #apt-get install -y \
+        #python3 \
+        #python3-pip
+        #pip3 install --upgrade pip
         pip install -r requirements.txt
         pip freeze > requirements_docker.txt
         python --version > python_version.txt
