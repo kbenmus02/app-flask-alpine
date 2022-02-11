@@ -28,8 +28,9 @@ jobs:
 
     - name: get Xy
       run: |
+        dvc init
         dvc pull
-        ls model    
+        ls -lrt model/    
     
     - name: preparer_gitpush
       run: |
