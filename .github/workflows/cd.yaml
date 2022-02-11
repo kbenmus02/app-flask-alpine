@@ -37,7 +37,7 @@ jobs:
         git config --local user.name "$GITHUB_USERNAME"
         git add requirements_docker.txt python_version.txt temoin2.txt
         
-        git commit --allow-empty -m "push depuis docker $(date +%d-%b-%H_%M)"
+        git commit --allow-empty -m "push at $(date +%d-%b-%H_%M)"
         git tag -a "v1.0" -m "tag avec temoin.txt depuis gitactions"
         git push --follow-tags
         git push
