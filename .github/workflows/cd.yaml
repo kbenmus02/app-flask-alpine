@@ -38,7 +38,8 @@ jobs:
         git add requirements_docker.txt python_version.txt temoin2.txt
         git commit --allow-empty -m "push depuis docker "
         git tag -a "v1.0" -m "tag avec temoin.txt depuis gitactions"
-        git push --tags   
+        git push --follow-tags
+
       env:
         GITHUB_USERNAME: "$GITHUB_USERNAME"
         GITHUB_EMAIL: "$GITHUB_EMAIL"
