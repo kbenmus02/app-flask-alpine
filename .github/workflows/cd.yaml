@@ -30,17 +30,17 @@ jobs:
       run: |
         dvc pull -f model
         ls -lrt model/    
-    
-    - name: Create tag
-      uses: actions/github-script@v5
-      with:
-        script: |
-          github.rest.git.createRef({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            ref: 'refs/tags/"v1.1"',
-            sha: context.sha
-          })
+
+#    - name: Create tag
+#      uses: actions/github-script@v5
+#      with:
+#        script: |
+#          github.rest.git.createRef({
+#            owner: context.repo.owner,
+#            repo: context.repo.repo,
+#            ref: 'refs/tags/"v1.1"',
+#            sha: context.sha
+#          })
 
     - name: preparer_gitpush
       run: |
@@ -53,7 +53,7 @@ jobs:
         git tag -a "v1.2" -m "tag avec temoin.txt depuis gitactions"
         git push --follow-tags
         #git push --tags
-        #git push
+        git push
 
       env:
         GITHUB_USERNAME: "$GITHUB_USERNAME"
