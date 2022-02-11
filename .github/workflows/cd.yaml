@@ -44,7 +44,7 @@ jobs:
         GITHUB_EMAIL: "$GITHUB_EMAIL"
 
 ---
-
+name: CD-Deploy_on_Heroku
 on:
   push:
     branches:
