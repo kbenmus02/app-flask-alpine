@@ -7,7 +7,6 @@ on:
       - test_lib_keras
       - tester_yaml
       
-
 jobs:
   myCI:
     runs-on: ubuntu-latest
@@ -24,7 +23,7 @@ jobs:
         #pip install -r requirements.txt
         #pip freeze > requirements_docker.txt
         python --version > python_version.txt
-
+        touch temoin.txt
     - name: get Xy
       env:
         GDRIVE_CREDENTIALS_DATA: ${{ secrets.GDRIVE_CREDENTIALS_DATA }}
@@ -36,23 +35,13 @@ jobs:
       run: |
         git config --local user.email "$GITHUB_EMAIL"
         git config --local user.name "$GITHUB_USERNAME"
-        git add requirements_docker.txt python_version.txt
+        git add requirements_docker.txt python_version.txt temoin.txt
         git commit --allow-empty -m "push depuis docker "
         git push    
       env:
         GITHUB_USERNAME: "$GITHUB_USERNAME"
         GITHUB_EMAIL: "$GITHUB_EMAIL"
-
----
-name: CD-Deploy_on_Heroku
-on:
-  push:
-    branches:
-      - master
-      
-
-jobs:
-
+        
   my_CD:
     runs-on: ubuntu-latest
     #needs: [myCI]
