@@ -21,15 +21,15 @@ jobs:
       env:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        pip install -r requirements.txt
-        pip freeze > requirements_docker.txt
+        #pip install -r requirements.txt
+        #pip freeze > requirements_docker.txt
         python --version > python_version.txt
 
     - name: get Xy
       env:
         GDRIVE_CREDENTIALS_DATA: ${{ secrets.GDRIVE_CREDENTIALS_DATA }}
       run: |
-        dvc pull model
+        dvc pull -f model
         ls -lrt model/    
     
     - name: preparer_gitpush
