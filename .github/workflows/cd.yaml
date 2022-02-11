@@ -28,7 +28,7 @@ jobs:
 
     - name: get Xy
       run: |
-        dvc init
+        
         dvc pull
         ls -lrt model/    
     
