@@ -38,7 +38,7 @@ jobs:
           github.rest.git.createRef({
             owner: context.repo.owner,
             repo: context.repo.repo,
-            ref: 'refs/tags/<tagname>',
+            ref: 'refs/tags/"v1.0"',
             sha: context.sha
           })
 
@@ -48,7 +48,7 @@ jobs:
         git config --local user.name "$GITHUB_USERNAME"
         git add requirements_docker.txt python_version.txt temoin4.txt
         
-        echo date +%Z
+        echo $(date +%Z)
         git commit --allow-empty -m "push at $(date +%d-%b-%H_%M)"
         git tag -a "v1.0" -m "tag avec temoin.txt depuis gitactions"
         git push --follow-tags
