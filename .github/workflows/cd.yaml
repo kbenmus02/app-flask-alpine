@@ -42,7 +42,17 @@ jobs:
       env:
         GITHUB_USERNAME: "$GITHUB_USERNAME"
         GITHUB_EMAIL: "$GITHUB_EMAIL"
-        
+
+---
+
+on:
+  push:
+    branches:
+      - master
+      
+
+jobs:
+
   my_CD:
     runs-on: ubuntu-latest
     #needs: [myCI]
