@@ -23,7 +23,7 @@ jobs:
         #pip install -r requirements.txt
         #pip freeze > requirements_docker.txt
         python --version > python_version.txt
-        touch temoin.txt
+        touch temoin2.txt
     - name: get Xy
       env:
         GDRIVE_CREDENTIALS_DATA: ${{ secrets.GDRIVE_CREDENTIALS_DATA }}
@@ -35,9 +35,10 @@ jobs:
       run: |
         git config --local user.email "$GITHUB_EMAIL"
         git config --local user.name "$GITHUB_USERNAME"
-        git add requirements_docker.txt python_version.txt temoin.txt
+        git add requirements_docker.txt python_version.txt temoin2.txt
         git commit --allow-empty -m "push depuis docker "
-        git push    
+        git tag -a "v1.0" -m "tag avec temoin.txt depuis gitactions"
+        git push --tags   
       env:
         GITHUB_USERNAME: "$GITHUB_USERNAME"
         GITHUB_EMAIL: "$GITHUB_EMAIL"
